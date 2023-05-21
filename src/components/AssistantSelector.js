@@ -18,20 +18,23 @@ function AssistantSelector() {
   }
 
   return (
-    <div className="dropdown assistant-selection">
+    <div className="assistant-selector">
       <h6 className="assistant-label">Choose an Assistant</h6>
-      <button className="btn btn-danger dropdown-toggle" type="button" id="assistantDropdown">
-        {selectedAssistant}
-      </button>
-      <div className="dropdown-menu" aria-labelledby="assistantDropdown">
+      <div className="switches-container">
         {assistants.map((assistant) => (
-          <button 
-            className="dropdown-item" 
-            onClick={() => handleSelect(assistant)}
-            key={assistant}
-          >
-            {assistant}
-          </button>
+          <div key={assistant} className="switch-container">
+            <label htmlFor={assistant}>{assistant}</label>
+            <label className="switch">
+              <input
+                type="radio"
+                id={assistant}
+                name="assistant"
+                checked={selectedAssistant === assistant}
+                onChange={() => handleSelect(assistant)}
+              />
+              <span className="slider round" />
+            </label>
+          </div>
         ))}
       </div>
     </div>
