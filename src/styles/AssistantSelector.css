@@ -1,0 +1,30 @@
+.assistant-selection {
+  align-self: center;
+}
+
+.assistant-label {
+    color: #ff0000;
+  }
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .dropdown-menu button {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
