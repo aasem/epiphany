@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/ChatLayout.css';
+import './ChatLayout.css';
 
 function ChatLayout() {
   const [chatLog, setChatLog] = useState([]); // Start with an empty chat log
@@ -33,8 +33,10 @@ function ChatLayout() {
             handleSendMessage(message);
           }}
         >
-          <textarea id="userText" rows="3" placeholder="Send a message." className="input-message" />
-          <button id="submit" type="button" className="btn">Send</button>
+          <div className="input-message-container">
+            <textarea id="userText" rows="3" placeholder="Send a message." className="input-message" />
+            <button id="submit" type="button" className="send-btn">Send</button>
+          </div>
         </form>
       </div>
     </div>

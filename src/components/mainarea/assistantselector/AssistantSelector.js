@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/AssistantSelector.css';
+import './AssistantSelector.css';
 
 const assistants = [
   "Strategico",

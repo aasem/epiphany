@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles/App.css'; // Global styles
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Footer from './components/Footer';
-import MainArea from './components/MainArea';
+import Header from './components/header/Header';
+import Sidebar from './components/sidebar/Sidebar';
+import Footer from './components/footer/Footer';
+import MainArea from './components/mainarea/MainArea';
 
 function App() {
   return (

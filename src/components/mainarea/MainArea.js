@@ -1,7 +1,7 @@
 import React from 'react';
-import AssistantSelector from './AssistantSelector';
-import ChatLayout from './ChatLayout';
-import '../styles/MainArea.css';
+import AssistantSelector from './assistantselector/AssistantSelector';
+import ChatLayout from './chatlayout/ChatLayout';
+import './MainArea.css';
 
 function MainArea() {
   return (
