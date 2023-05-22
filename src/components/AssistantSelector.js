@@ -19,11 +19,10 @@ function AssistantSelector() {
 
   return (
     <div className="assistant-selector">
-      <h6 className="assistant-label">Choose an Assistant</h6>
       <div className="switches-container">
         {assistants.map((assistant) => (
           <div key={assistant} className="switch-container">
-            <label htmlFor={assistant}>{assistant}</label>
+            <label className="assistant-name" htmlFor={assistant}>{assistant}</label>
             <label className="switch">
               <input
                 type="radio"
