@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ChatLayout.css';
 
 function ChatLayout() {
-  const [chatLog, setChatLog] = useState([]); // Start with an empty chat log
+  const [chatLog, setChatLog] = useState([]); // State variable for starting with an empty chat log
 
   const handleSendMessage = (message) => {
     setChatLog([...chatLog, { message, fromUser: true }]); // Append the new message to the chat log
@@ -35,7 +35,7 @@ function ChatLayout() {
         >
           <div className="input-message-container">
             <textarea id="userText" rows="3" placeholder="Send a message." className="input-message" />
-            <button id="submit" type="button" className="send-btn">Send</button>
+            <button id="submit" type="submit" className="send-btn">Send</button>
           </div>
         </form>
       </div>
