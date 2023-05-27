@@ -1,16 +1,34 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import './ChatLayout.css';
 
 function ChatLayout() {
-  const [chatLog, setChatLog] = useState([]); // State variable for starting with an empty chat log
+  const [chatLog, setChatLog] = useState([]);
 
-  const handleSendMessage = (message) => {
-    setChatLog([...chatLog, { message, fromUser: true }]); // Append the new message to the chat log
+  const handleSendMessage = async (userMessage) => {
+    setChatLog([...chatLog, { message: userMessage, fromUser: true }]);
+  
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/v1/strategico', 
+        { message: userMessage },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      if (response.status === 200) {
+        const assistantMessage = response.data.message;
+        setChatLog(prevChatLog => [...prevChatLog, { message: assistantMessage, fromUser: false }]);
+      } else {
+        setChatLog(prevChatLog => [...prevChatLog, { message: `Error ${response.status}: ${response.statusText}`, fromUser: false }]);
+      }
+    } catch (err) {
+      console.error(err);
+      setChatLog(prevChatLog => [...prevChatLog, { message: 'Error: Unable to connect to the assistant.', fromUser: false }]);
+    }
   };
 
   return (
     <div className="chat-container">
-      {/* Display chat log */}
       <div className="chat-log">
         {chatLog.map((messageData, index) => (
           <div key={index} className={`chat-message-container ${messageData.fromUser ? '' : 'from-gpt'}`}>
@@ -22,7 +40,6 @@ function ChatLayout() {
         ))}
       </div>
 
-      {/* Send new message */}
       <div className="input-container">
         <form
           className="message-form"

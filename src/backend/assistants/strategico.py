@@ -1,25 +1,20 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
-import os
+from flask import Blueprint, request, jsonify
 from decouple import config
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts.prompt import PromptTemplate
 
+strategico_blueprint = Blueprint('strategico', __name__)  # create a blueprint
+
 openai_api_key = config('API_KEY')
 if openai_api_key is None or openai_api_key == "":
         print("API_KEY is not set")
         exit(1)
 
-print(openai_api_key)
-# Create a Flask app instance
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mysecret'
-
 template = """You are an expert strategic communication assistant.
-Current conversation:
-User: {history}
-Strategico: {input}
+{history}
+{input}
 """
 
 SYSPROMPT = PromptTemplate(
@@ -35,21 +30,12 @@ conversation = ConversationChain(
      verbose=False, 
      memory=memory)
 
-# Route for the root path ('/') of the website
-# Render the index.html template when the root path is accessed
-@app.route('/')
-def index():
-    return send_from_directory(os.path.join(app.root_path, 'public'), 'index.html')
 
-# Route for the message processing
-@app.route('/process_message', methods=['POST'])
-def process_message():
+@strategico_blueprint.route('/api/v1/strategico', methods=['POST'])
+
+
+def strategico():
     data = request.get_json()
     user_prompt = data.get('message', '')
     response = conversation.predict(input=user_prompt)
-    return jsonify({'response': response})
-
-
-# Start the Flask app with debug mode enabled
-if __name__ == '__main__':
-    app.run(debug=True)
+    return jsonify({'message': response})
