@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './AssistantSelector.css';
 
 const assistants = [
   "Strategico",
-  "Khoji",
-  "Naqqash",
-  "Likhari",
-  "Fankar",
-  "Naqqad",
+  "Khoji"
 ];
 
-function AssistantSelector() {
-  const [selectedAssistant, setSelectedAssistant] = useState("Strategico");
+function AssistantSelector({ selectedAssistant, setSelectedAssistant }) {
 
   const handleSelect = (assistant) => {
     setSelectedAssistant(assistant);

@@ -1,13 +1,13 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import './ChatLayout.css';
 
-function ChatLayout() {
-  const [chatLog, setChatLog] = useState([]);
+function ChatLayout({ state, setState }) {
+  const { chatLog } = state;
 
   const handleSendMessage = async (userMessage) => {
-    setChatLog([...chatLog, { message: userMessage, fromUser: true }]);
-  
+    setState({ chatLog: [...chatLog, { message: userMessage, fromUser: true }] });
+
     try {
       const response = await axios.post(
         'http://localhost:5000/api/v1/strategico', 
@@ -17,13 +17,13 @@ function ChatLayout() {
 
       if (response.status === 200) {
         const assistantMessage = response.data.message;
-        setChatLog(prevChatLog => [...prevChatLog, { message: assistantMessage, fromUser: false }]);
+        setState(prevState => ({ chatLog: [...prevState.chatLog, { message: assistantMessage, fromUser: false }] }));
       } else {
-        setChatLog(prevChatLog => [...prevChatLog, { message: `Error ${response.status}: ${response.statusText}`, fromUser: false }]);
+        setState(prevState => ({ chatLog: [...prevState.chatLog, { message: `Error ${response.status}: ${response.statusText}`, fromUser: false }] }));
       }
     } catch (err) {
       console.error(err);
-      setChatLog(prevChatLog => [...prevChatLog, { message: 'Error: Unable to connect to the assistant.', fromUser: false }]);
+      setState(prevState => ({ chatLog: [...prevState.chatLog, { message: 'Error: Unable to connect to the assistant.', fromUser: false }] }));
     }
   };
 
@@ -31,8 +31,8 @@ function ChatLayout() {
     <div className="chat-container">
       <div className="chat-log">
         {chatLog.map((messageData, index) => (
-          <div key={index} className={`chat-message-container ${messageData.fromUser ? '' : 'from-gpt'}`}>
-            <div className="avatar" />
+          <div key={index} className="chat-message-container">
+            <div className={messageData.fromUser ? 'user-avatar' : 'assistant-avatar'} />
             <div className="message">
               <p>{messageData.message}</p>
             </div>
