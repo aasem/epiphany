@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import Markdown from 'react-markdown';
 import './ChatLayout.css';
 
 function ChatLayout({ state, setState }) {
@@ -34,7 +35,7 @@ function ChatLayout({ state, setState }) {
           <div key={index} className="chat-message-container">
             <div className={messageData.fromUser ? 'user-avatar' : 'assistant-avatar'} />
             <div className="message">
-              <p>{messageData.message}</p>
+              <Markdown>{messageData.message}</Markdown>
             </div>
           </div>
         ))}

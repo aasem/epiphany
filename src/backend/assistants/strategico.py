@@ -7,7 +7,7 @@ from langchain.prompts.prompt import PromptTemplate
 
 strategico_blueprint = Blueprint('strategico', __name__)  # create a blueprint
 
-openai_api_key = config('API_KEY')
+openai_api_key = config('OPENAI_KEY')
 if openai_api_key is None or openai_api_key == "":
         print("API_KEY is not set")
         exit(1)
@@ -31,9 +31,7 @@ conversation = ConversationChain(
      verbose=False, 
      memory=memory)
 
-
 @strategico_blueprint.route('/api/v1/strategico', methods=['POST'])
-
 
 def strategico():
     data = request.get_json()

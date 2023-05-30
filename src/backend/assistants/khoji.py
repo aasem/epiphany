@@ -1,42 +1,40 @@
 from flask import Blueprint, request, jsonify
 from decouple import config
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts.prompt import PromptTemplate
+from langchain import PromptTemplate, OpenAI
+from langchain.chains import LLMChain
 
-strategico_blueprint = Blueprint('strategico', __name__)  # create a blueprint
+khoji_blueprint = Blueprint('khoji', __name__)  # create a blueprint
 
-openai_api_key = config('API_KEY')
+openai_api_key = config('OPENAI_KEY')  # use a unique key name to avoid conflicts
 if openai_api_key is None or openai_api_key == "":
         print("API_KEY is not set")
         exit(1)
 
-template = """You are an expert strategic communication assistant. Your task is it to have a friendly conversation with the user and help him design and execute his campaign.
+# initialize the OpenAI model
+llm = OpenAI(temperature=0.3, model_name="gpt-3.5-turbo", openai_api_key=openai_api_key)
 
-{history}
-{input}
+# Create the prompt template
+template = """
+I want you to act as a strategic communication expert. Extract a numeric list of major narratives and lines of pursuance for each narrative from the following text:
+
+Text: {input_text}.
+Narratives:
+Lines of Pursuance:
 """
 
-SYSPROMPT = PromptTemplate(
-     input_variables=["history", "input"],
-     template=template
-)
+prompt_template = PromptTemplate(
+    input_variables=["input_text"],
+    template=template
+    )
 
-llm = ChatOpenAI(temperature=0.3, model_name="gpt-3.5-turbo", openai_api_key=openai_api_key)
-memory = ConversationBufferMemory()
-conversation = ConversationChain(
-     prompt=SYSPROMPT,
-     llm=llm, 
-     verbose=False, 
-     memory=memory)
+llm_chain = LLMChain(
+      llm=llm, 
+      prompt=prompt_template
+      )
 
-
-@strategico_blueprint.route('/api/v1/strategico', methods=['POST'])
-
-
-def strategico():
+@khoji_blueprint.route('/api/v1/khoji', methods=['POST'])
+def analyze_text():
     data = request.get_json()
-    user_prompt = data.get('message', '')
-    response = conversation.predict(input=user_prompt)
-    return jsonify({'message': response})
+    input_text = data.get('userInput', '')
+    output_text = llm_chain.run({"input_text": input_text})
+    return jsonify(output_text)
