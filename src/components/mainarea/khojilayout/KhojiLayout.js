@@ -5,11 +5,11 @@ import './KhojiLayout.css';
 function KhojiLayout({ state, setState }) {
   const [userInput, setUserInput] = useState(state.userInput || '');
   const [narratives, setNarratives] = useState(state.narratives || '');
-  const [potentialCounterNarratives, setPotentialCounterNarratives] = useState(state.potentialCounterNarratives || '');
+  const [linesOfPursuance, setLinesOfPursuance] = useState(state.linesOfPursuance || '');
 
   useEffect(() => {
-    setState({ userInput, narratives, potentialCounterNarratives });
-  }, [userInput, narratives, potentialCounterNarratives, setState]);
+    setState({ userInput, narratives, linesOfPursuance });
+  }, [userInput, narratives, linesOfPursuance, setState]);
 
   const handleAnalyzeText = async () => {
     try {
@@ -17,16 +17,16 @@ function KhojiLayout({ state, setState }) {
       const outputText = response.data; // This should contain the full output text
   
       // Split the output text into two parts
-      const outputParts = outputText.split('Potential Counter Narratives:');
+      const outputParts = outputText.split('Lines of Pursuance:');
   
       // The first part is the narratives - remove the 'Narratives:' label from the start
       const narratives = outputParts[0].replace('Narratives:', '').trim();
   
-      // The second part is the potential counter-narratives
-      const potentialCounterNarratives = outputParts.length > 1 ? outputParts[1].trim() : '';
+      // The second part is the lines of pursuance
+      const linesOfPursuance = outputParts.length > 1 ? outputParts[1].trim() : '';
   
       setNarratives(narratives);
-      setPotentialCounterNarratives(potentialCounterNarratives);
+      setLinesOfPursuance(linesOfPursuance);
     } catch (error) {
       console.error('Failed to analyze text', error);
     }
@@ -47,8 +47,8 @@ function KhojiLayout({ state, setState }) {
       <div className="khoji-output-container">
         <label className="output-label">Narratives</label>
         <textarea value={narratives} readOnly className="output-text" />
-        <label className="output-label">Potential Counter-Narratives</label>
-        <textarea value={potentialCounterNarratives} readOnly className="output-text" />
+        <label className="output-label">Lines of Pursuance</label>
+        <textarea value={linesOfPursuance} readOnly className="output-text" />
       </div>
     </div>
   );
