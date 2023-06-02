@@ -3,7 +3,8 @@ import './AssistantSelector.css';
 
 const assistants = [
   "Strategico",
-  "Khoji"
+  "Khoji",
+  "Naqqash",
 ];
 
 function AssistantSelector({ selectedAssistant, setSelectedAssistant }) {

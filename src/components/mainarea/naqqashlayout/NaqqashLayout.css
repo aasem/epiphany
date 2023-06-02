@@ -1,0 +1,115 @@
+.naqqash-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .naqqash-input-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: 0 10px;
+    height: 100%;
+  }
+  
+  .naqqash-output-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: 0 10px;
+    height: 100%;
+  }
+
+  .input-text-campaign {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #636464;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+    height: 20%;
+    margin-bottom: 10px;
+}
+
+.input-text-narratives {
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #636464;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+  height: 60%;
+  margin-bottom: 10px;
+}
+  
+  .output-text {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #636464;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+    height: 86%;
+    background-color: #f0f0f0;
+  }
+
+  .input-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .output-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .generate-btn, .segmentation-btn {
+    height: 40px;
+    width: 48%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .generate-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+  }
+  
+  .segmentation-btn {
+    background-color: #073971;
+    border: none;
+    color: white;
+  }
+  
+  .generate-btn:hover {
+    background-color: #740f19;
+    opacity: 0.9;
+  }
+  
+  .segmentation-btn:hover {
+    background-color: #031f3c;
+    opacity: 0.9;
+  }
+  
+  .generate-btn:active, .segmentation-btn:active {
+    transform: scale(0.98);
+  }
